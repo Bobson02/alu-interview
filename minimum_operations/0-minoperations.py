@@ -1,23 +1,23 @@
 #!/usr/bin/python3
+""" Minimum Operations
+"""
 
-def minOperations(n):
-    """
-    Method to calculate the minimum number of operations
-    required to result in exactly n 'H' characters
-    using the operations: Copy All and Paste.
-    """
-
-    if n <= 1:
-        return 0
-
+def min_operations(n: int) -> int:
+    """Minimum operations needed to get n H characters"""
+    next_char = 'H'
+    body = 'H'
     operations = 0
-    divisor = 2
 
-    while divisor <= n:
-        if n % divisor == 0:
-            operations += divisor
-            n //= divisor
+    while len(body) < n:
+        if n % len(body) == 0:
+            operations += 2
+            next_char = body
+            body += body
         else:
-            divisor += 1
+            operations += 1
+            body += next_char
+
+    if len(body) != n:
+        return 0
 
     return operations
